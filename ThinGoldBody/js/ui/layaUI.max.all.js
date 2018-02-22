@@ -21,4 +21,20 @@ var ui;
     }(View));
     ui.mainViewUI = mainViewUI;
 })(ui || (ui = {}));
+var ui;
+(function (ui) {
+    var maxFontViewUI = (function (_super) {
+        __extends(maxFontViewUI, _super);
+        function maxFontViewUI() {
+            _super.call(this);
+        }
+        maxFontViewUI.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
+            this.createView(ui.maxFontViewUI.uiView);
+        };
+        maxFontViewUI.uiView = { "type": "View", "props": { "width": 760, "height": 1280 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 760, "skin": "comp/blank.png", "height": 1280 }, "child": [{ "type": "Sprite", "props": { "y": 550, "x": 130, "var": "pos_" } }] }] };
+        return maxFontViewUI;
+    }(View));
+    ui.maxFontViewUI = maxFontViewUI;
+})(ui || (ui = {}));
 //# sourceMappingURL=layaUI.max.all.js.map

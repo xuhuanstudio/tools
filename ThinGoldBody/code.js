@@ -52436,6 +52436,22 @@ var ui;
     }(View));
     ui.mainViewUI = mainViewUI;
 })(ui || (ui = {}));
+var ui;
+(function (ui) {
+    var maxFontViewUI = (function (_super) {
+        __extends(maxFontViewUI, _super);
+        function maxFontViewUI() {
+            _super.call(this);
+        }
+        maxFontViewUI.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
+            this.createView(ui.maxFontViewUI.uiView);
+        };
+        maxFontViewUI.uiView = { "type": "View", "props": { "width": 760, "height": 1280 }, "child": [{ "type": "Image", "props": { "y": 0, "x": 0, "width": 760, "skin": "comp/blank.png", "height": 1280 }, "child": [{ "type": "Sprite", "props": { "y": 550, "x": 130, "var": "pos_" } }] }] };
+        return maxFontViewUI;
+    }(View));
+    ui.maxFontViewUI = maxFontViewUI;
+})(ui || (ui = {}));
 //# sourceMappingURL=layaUI.max.all.js.map
 // 程序入口
 var GameMain = (function () {
@@ -52455,6 +52471,7 @@ var GameMain = (function () {
         this.mainImg.y = 350;
         Laya.stage.addChild(this.mainImg);
         this.mainUI.yesBtn.on(Laya.Event.CLICK, this, this.onLoadFont);
+        this.maxFontUI = new ui.maxFontViewUI();
     };
     GameMain.prototype.onLoadFont = function () {
         if (this.mainImg.numChildren > 0) {
@@ -52471,7 +52488,10 @@ var GameMain = (function () {
                 var img = new Laya.Sprite();
                 this.mainImg.addChild(img);
                 var yy = Math.floor((index + 1) * 150 / Laya.stage.width);
-                img.loadImage("res/word/" + element + ".jpg", index * 150 - yy * (Math.floor(Laya.stage.width / 150) * 150), yy * 150, 150, 150);
+                img.loadImage("res/word/" + element + ".jpg", null, null, 150, 150); //, index*150 - yy*(Math.floor(Laya.stage.width/150)*150) , yy*150, 150, 150
+                img.name = "res/word/" + element + ".jpg";
+                img.pos(index * 150 - yy * (Math.floor(Laya.stage.width / 150) * 150), yy * 150);
+                img.on(Laya.Event.MOUSE_DOWN, this, this.getMaxFontUI);
             }
             else {
                 console.log("千字文不存在 “" + element + "” 字");
@@ -52480,6 +52500,23 @@ var GameMain = (function () {
     };
     GameMain.prototype.getText = function () {
         this.str1 = new strText().text;
+    };
+    GameMain.prototype.getMaxFontUI = function (e) {
+        Laya.stage.addChild(this.maxFontUI);
+        var _maxFont = new Laya.Sprite();
+        _maxFont.loadImage(e.target.name, null, null, 500, 500);
+        _maxFont.pos(this.maxFontUI.pos_.x, this.maxFontUI.pos_.y);
+        this.maxFontUI.addChild(_maxFont);
+        this.maxFontUI.on(Laya.Event.MOUSE_DOWN, this, this.exitMaxFontUI, [_maxFont]);
+        // if(this.maxFontUI==null){
+        //     this.maxFontUI = null;
+        // }
+    };
+    GameMain.prototype.exitMaxFontUI = function (_maxFont) {
+        Laya.stage.removeChild(this.maxFontUI);
+        if (this.maxFontUI.numChildren > 0) {
+            this.maxFontUI.removeChild(_maxFont);
+        }
     };
     return GameMain;
 }());
