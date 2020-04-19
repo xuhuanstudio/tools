@@ -1,6 +1,6 @@
 # tools
 
-### 瘦金体千字文字典体验链接 https://skydancers.github.io/tools/ThinGoldBody
+### 瘦金体千字文字典体验链接 https://xuhuanstudio.github.io/tools/ThinGoldBody
 
 ### 通知
 
